@@ -1,30 +1,24 @@
-import Button from "./Button";
-import styles from "./App.module.css";
 import { useState, useEffect } from "react";
-
-function App() {
-    const [counter, setCounter] = useState(0);
-    const [keyword, setKeyword] = useState("");
-    const onClick = () => setCounter((prev) => prev + 1);
-    const onChange = (event) => setKeyword(event.target.value);
-    useEffect(() => console.log("call the api"), []);
+function Hello() {
     useEffect(() => {
-        if (keyword !== "" && keyword.length > 5) {
-            console.log("SerachFor", keyword);
-        }
-    }, [keyword]);
-    console.log("irun allthe time");
+        console.log("hi");
+        return () => console.log("bye");
+    }, []);
+    return <h1>Hello</h1>;
+}
+function App() {
+    const [showing, setShowing] = useState(false);
+
+    const onClick = () => setShowing((prev) => !prev);
+
+    useEffect(() => console.log("call the api"), []);
+
+    console.log("i run all the time");
+
     return (
         <div>
-            <input
-                value={keyword}
-                onChange={onChange}
-                type="text"
-                placeholder="text"
-            ></input>
-            <h1 className={styles.title}>{counter}</h1>
-            <Button text={"Contiune"} />
-            <button onClick={onClick}>Click me</button>
+            {showing ? <Hello /> : null}
+            <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
         </div>
     );
 }
